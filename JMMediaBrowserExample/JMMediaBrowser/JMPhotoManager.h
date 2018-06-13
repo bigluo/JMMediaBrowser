@@ -16,17 +16,23 @@ typedef void(^loadImageCompleteBlock)(UIImage *image,CGRect imageRect,NSError *e
 typedef void(^loadImageProgressBlock)(CGFloat schedule);
 typedef void(^saveImageResult)(BOOL success);
 
+@protocol JMPhotoManagerDelegate
+@optional
+- (void)jm_loadImageProgress:(CGFloat)schedule;
+
+- (void)jm_loadImageCompleteWithURLStr:(NSString *)urlStr Image:(UIImage *)image imageRect:(CGRect)imageRect error:(NSError *)error;
+
+@end
+
 @interface JMPhotoManager : NSObject
+
 @property (nonatomic, strong, readonly) JMMediaModel *model;
 
-//@property (nonatomic, strong) JMPhotoCollectionCell *cell;
+@property (nonatomic, weak, nullable) id <JMPhotoManagerDelegate> delegate;
 
+- (void)loadImageWithModel:(JMMediaModel *)model;
 
-- (void)loadImageWithModel:(JMMediaModel *)model
-                  progress:(loadImageProgressBlock)progress
-                Completion:(loadImageCompleteBlock)completeBlock;
-
-- (void)saveImagetoSystem:(saveImageResult)saveBlock;
+//- (void)saveImagetoSystem:(saveImageResult)saveBlock;
 
 - (CGFloat)zoomScale;
 

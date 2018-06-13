@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface JMVideoBaseCollectionView : UICollectionView
+@interface JMVideoBaseCollectionView : UICollectionViewCell
+
+- (void)addPlayerLayer:(AVPlayerLayer *)playerLayer;
+- (void)changeSliderValue:(CGFloat)value currentTime:(NSString *)currenTimeValue;
+
+- (void)showActivity;
+- (void)hideActivity;
 
 @end

@@ -140,7 +140,7 @@
     [self configureVolume];
     
     //创建player属性
-    NSURL *videoURL = [NSURL URLWithString:_mediaModel.mediaURL];
+    NSURL *videoURL = [NSURL URLWithString:_mediaModel.mediaURLString];
     AVURLAsset *asset = [AVURLAsset assetWithURL:videoURL];
 
     self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];//网络

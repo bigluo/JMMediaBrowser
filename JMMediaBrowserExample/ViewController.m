@@ -34,8 +34,8 @@
     for (NSInteger index = 0; index < 4; index++) {
         JMMediaModel *model = [[JMMediaModel alloc]init];
         model.mediaType = JMMediaTypePhoto;
-        model.mediaURL = [NSString stringWithFormat:@"photo-%ld",index];
-        model.placeholderImageFileStr = @"placeHolder";
+        model.mediaURLString = [NSString stringWithFormat:@"photo-%ld",index];
+        model.placeholderString = @"placeHolder";
         [arr addObject:model];
     }
     
@@ -53,8 +53,8 @@
     for (NSInteger index = 0; index < urlArr.count; index++) {
         JMMediaModel *model = [[JMMediaModel alloc]init];
         model.mediaType = JMMediaTypePhoto;
-        model.mediaURL = urlArr[index];
-        model.placeholderImageFileStr = @"placeHolder";
+        model.mediaURLString = urlArr[index];
+        model.placeholderString = @"placeHolder";
         [arr addObject:model];
     }
     
@@ -64,14 +64,15 @@
 
 
 - (void)toRemoteVideoBrowser{
+    //sadfasfs
     //@"http://static.smartisanos.cn/common/video/proud-farmer.mp4";
     NSArray *urlArr = @[@"http://static.smartisanos.cn/common/video/proud-farmer.mp4",@"http://static.smartisanos.cn/common/video/proud-farmer.mp4",@"http://static.smartisanos.cn/common/video/proud-farmer.mp4"];
     NSMutableArray *arr = [NSMutableArray array];
     for (NSInteger index = 0; index < urlArr.count; index++) {
         JMMediaModel *model = [[JMMediaModel alloc]init];
         model.mediaType = JMMediaTypeVideo;
-        model.mediaURL = urlArr[index];
-        model.placeholderImageFileStr = @"placeHolder";
+        model.mediaURLString = urlArr[index];
+        model.placeholderString = @"placeHolder";
         [arr addObject:model];
     }
     

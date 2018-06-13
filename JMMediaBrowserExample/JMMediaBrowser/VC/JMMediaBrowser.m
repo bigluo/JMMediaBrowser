@@ -272,21 +272,22 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
     JMPhotoCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:JMPhotoCellIdentifier
                                                                             forIndexPath:indexPath];
     
-    __block JMPhotoCollectionCell* blockCell = cell;
-    [cell setPlaceholderImage:model.placeholderImageFileStr];
-    [self.photoManager loadImageWithModel:model progress:^(CGFloat schedule) {
-        //        [cell showProgressViewWithSchedule:schedule];
-        // [cell jm_showProgressViewWithSchedule:schedule];
-    } Completion:^(UIImage *image, CGRect imageRect, NSError *error) {
-        //            [cell jm_removeActivityIndicator];
-        //        [cell jm_removeProgressView];
-        if (!error) {
-            [blockCell setShowImage:image imageRect:imageRect animation:_animateShow];
-            if (_animateShow) {
-                _animateShow = NO;
-            }
-        }
-    }];
+//    __block JMPhotoCollectionCell* blockCell = cell;
+    [cell setPlaceholderImage:model.placeholderString];
+    [self.photoManager loadImageWithModel:model];
+//    [self.photoManager loadImageWithModel:model progress:^(CGFloat schedule) {
+//        //        [cell showProgressViewWithSchedule:schedule];
+//        // [cell jm_showProgressViewWithSchedule:schedule];
+//    } Completion:^(UIImage *image, CGRect imageRect, NSError *error) {
+//        //            [cell jm_removeActivityIndicator];
+//        //        [cell jm_removeProgressView];
+//        if (!error) {
+//            [blockCell setShowImage:image imageRect:imageRect animation:_animateShow];
+//            if (_animateShow) {
+//                _animateShow = NO;
+//            }
+//        }
+//    }];
     [cell jm_showActivityIndicatorView];
     return cell;
 }

@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/View/JMPhotoCollectionCell.m"
-            timestampString = "550228176.979182"
+            timestampString = "550474632.84682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "174"
@@ -26,7 +26,7 @@
                   moduleName = "JMMediaBrowserExample"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/View/JMPhotoCollectionCell.m"
-                  timestampString = "550228177.021848"
+                  timestampString = "550474632.894204"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
@@ -41,7 +41,7 @@
                   moduleName = "JMMediaBrowserExample"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/View/JMPhotoCollectionCell.m"
-                  timestampString = "550228177.028149"
+                  timestampString = "550474632.898445"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/View/JMPhotoCollectionCell.m"
-            timestampString = "550228176.979303"
+            timestampString = "550474632.8469501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
@@ -74,13 +74,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
-            timestampString = "550142718.375051"
+            timestampString = "550474632.847023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "-loadImageWithModel:progress:Completion:"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-loadImageWithModel:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JMPhotoManager loadImageWithModel:]"
+                  moduleName = "JMMediaBrowserExample"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
+                  timestampString = "550474632.915825"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "1684">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JMPhotoManager loadImageWithModel:]"
+                  moduleName = "JMMediaBrowserExample"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
+                  timestampString = "550474632.9205739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "1692">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +122,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
-            timestampString = "550142718.37512"
+            timestampString = "550474632.84709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "-loadImageWithModel:progress:Completion:"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-loadImageWithModel:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[JMPhotoManager loadImageWithModel:]_block_invoke.18"
+                  moduleName = "JMMediaBrowserExample"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
+                  timestampString = "550474632.930065"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "498">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.21"
+                  moduleName = "JMMediaBrowserExample"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
+                  timestampString = "550474632.935021"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.22"
+                  moduleName = "JMMediaBrowserExample"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a123/Desktop/JMMediaBrowserExample/JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
+                  timestampString = "550474632.939157"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "55">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,12 +185,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/JMPhotoManager.m"
-            timestampString = "550142718.375185"
+            timestampString = "550474632.847154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-loadImageWithModel:progress:Completion:"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-loadImageWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,7 +217,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JMMediaBrowserExample/JMMediaBrowser/JMVideoManager.m"
-            timestampString = "550228176.9797699"
+            timestampString = "550474632.8472511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "264"

@@ -26,25 +26,27 @@
     return _fileManager;
 }
 
-- (void)loadImageWithModel:(JMMediaModel *)model
-                  progress:(loadImageProgressBlock)progress
-                Completion:(loadImageCompleteBlock)completeBlock{
+- (void)loadImageWithModel:(JMMediaModel *)model{
     _model = model;
     __weak typeof(self) weakSelf = self;
     
     //网络图片
-    if ([self.model.mediaURL hasPrefix:@"http"]) {
-        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:model.mediaURL]
+    if ([self.model.mediaURLString hasPrefix:@"http"]) {
+        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:model.mediaURLString]
                                                     options:SDWebImageRetryFailed
                                                    progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-            if ([targetURL.absoluteString isEqualToString:model.mediaURL]){
-                progress(receivedSize/expectedSize);
+            if ([targetURL.absoluteString isEqualToString:model.mediaURLString]){
+                
+//                if ([_delegate respondsToSelector:@selector(jm_loadImageProgress:)]) {
+//                    progress(receivedSize/expectedSize);
+//                }
+                
             }
         }completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
             
-            if ([imageURL.absoluteString isEqualToString:model.mediaURL]){
+            if ([imageURL.absoluteString isEqualToString:model.mediaURLString]){
                 CGRect imageRect = [weakSelf getRectFromImage:image];
-                completeBlock(image,imageRect,error);
+                //completeBlock(image,imageRect,error);
             }
 
         }];
@@ -53,18 +55,20 @@
         UIImage *image =[UIImage imageNamed:@"flower"];
         if (image) {
             CGRect imageRect = [self getRectFromImage:image];
-            completeBlock(image,imageRect,nil);
+            //completeBlock(image,imageRect,nil);
             return;
         }
         
-        if ([self.fileManager fileExistsAtPath:self.model.mediaURL]) {
-            NSData *imageData = [NSData dataWithContentsOfFile:self.model.mediaURL];
+        if ([self.fileManager fileExistsAtPath:self.model.mediaURLString]) {
+            NSData *imageData = [NSData dataWithContentsOfFile:self.model.mediaURLString];
+            
             if (imageData) {
                 UIImage *image = [UIImage imageWithData:imageData];
                 CGRect imageRect = [self getRectFromImage:image];
-                completeBlock(image,imageRect,nil);
+                //completeBlock(image,imageRect,nil);
+//                self.delegate resoph
             }else{
-                completeBlock(nil,CGRectNull,nil);
+              //  completeBlock(nil,CGRectNull,nil);
             }
             
         }else{
