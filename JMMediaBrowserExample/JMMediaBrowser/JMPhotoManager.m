@@ -52,10 +52,10 @@
         }];
 
     }else{
-        UIImage *image =[UIImage imageNamed:@"flower"];
+        UIImage *image =[UIImage imageNamed:model.mediaURLString];
         if (image) {
             CGRect imageRect = [self getRectFromImage:image];
-            //completeBlock(image,imageRect,nil);
+//            completeBlock(image,imageRect,nil);
             return;
         }
         
@@ -65,7 +65,7 @@
             if (imageData) {
                 UIImage *image = [UIImage imageWithData:imageData];
                 CGRect imageRect = [self getRectFromImage:image];
-                //completeBlock(image,imageRect,nil);
+//                completeBlock(image,imageRect,nil);
 //                self.delegate resoph
             }else{
               //  completeBlock(nil,CGRectNull,nil);

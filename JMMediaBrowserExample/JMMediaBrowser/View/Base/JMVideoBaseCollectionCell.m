@@ -6,13 +6,13 @@
 //  Copyright © 2018年 JM. All rights reserved.
 //
 
-#import "JMVideoBaseCollectionView.h"
+#import "JMVideoBaseCollectionCell.h"
 #import "JMVideoManager.h"
 #import "JMHeader.h"
 
 
 
-@interface JMVideoBaseCollectionView()
+@interface JMVideoBaseCollectionCell()
 
 @property (nonatomic, strong) UIActivityIndicatorView *activity;
 
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation JMVideoBaseCollectionView
+@implementation JMVideoBaseCollectionCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

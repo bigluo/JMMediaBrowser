@@ -16,7 +16,7 @@
 @implementation JMMediaBrowserTranslation
 //代码方法-转场时长
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 1.0;
+    return 0.5;
     
 }
 

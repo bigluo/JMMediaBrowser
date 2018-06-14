@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "JMHeader.h"
+#import "TestLocolPhotoVC.h"
+
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView * tableView;
 
@@ -30,20 +32,27 @@
 }
 
 - (void)toLocolPhotoBrowser{
-    NSMutableArray *arr = [NSMutableArray array];
-    for (NSInteger index = 0; index < 4; index++) {
-        JMMediaModel *model = [[JMMediaModel alloc]init];
-        model.mediaType = JMMediaTypePhoto;
-        model.mediaURLString = [NSString stringWithFormat:@"photo-%ld",index];
-        model.placeholderString = @"placeHolder";
-        [arr addObject:model];
-    }
-    
-    JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:0];
-    [browser show];
+    TestLocolPhotoVC *VC = [[TestLocolPhotoVC alloc]init];
+    VC.photoSource = PhotoSourceLocal;
+    [self.navigationController pushViewController:VC animated:YES];
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (NSInteger index = 0; index < 4; index++) {
+//        JMMediaModel *model = [[JMMediaModel alloc]init];
+//        model.mediaType = JMMediaTypePhoto;
+//        model.mediaURLString = [NSString stringWithFormat:@"photo-%ld",index];
+//        model.placeholderString = @"placeHolder";
+//        [arr addObject:model];
+//    }
+//
+//    JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:0];
+//    [browser show];
 }
 
 - (void)toRemotePhotoBrowser{
+    TestLocolPhotoVC *VC = [[TestLocolPhotoVC alloc]init];
+    VC.photoSource = PhotoSourceRemote;
+    [self.navigationController pushViewController:VC animated:YES];
+    return;
     //@"http://static.smartisanos.cn/common/video/proud-farmer.mp4";
     NSArray *urlArr = @[
                         @"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=597375154,2905536386&fm=27&gp=0.jpg",
@@ -104,6 +113,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"点击了第%ld行",indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row == 0){
         [self toLocolPhotoBrowser];

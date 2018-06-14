@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "JMVideoBaseCollectionCell.h"
+
 @class JMMediaModel;
 @class JMVideoService;
-@interface JMVideoCollectionCell : UICollectionViewCell
+@interface JMVideoCollectionCell : JMVideoBaseCollectionCell
 
 @property (strong, nonatomic)  UIButton *playOrPauserBtn;
 

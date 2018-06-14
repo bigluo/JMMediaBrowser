@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "JMMediaModel.h"
 #import "JMProgressView.h"
-@interface JMPhotoCollectionCell : UICollectionViewCell
-@property (nonatomic, strong) UIImageView *showImageView;
-- (void)showActivity;
-- (void)hideActivity;
+#import "JMPhotoBaseCollectionCell.h"
 
-- (void)setPlaceholderImage:(NSString *)imageURL;
+
+@interface JMPhotoCollectionCell : JMPhotoBaseCollectionCell
+@property (nonatomic, strong) UIImageView *showImageView;
+
+@property (nonatomic, copy) void (^singleTapBlock)();
 
 - (void)setShowImage:(UIImage *)image imageRect:(CGRect)imageRect animation:(BOOL)animation;
 

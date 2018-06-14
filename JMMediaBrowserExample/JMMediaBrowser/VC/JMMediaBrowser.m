@@ -14,6 +14,7 @@
 #import "UIView+JMExtension.h"
 #import "JMHeader.h"
 #import "UIImageView+WebCache.h"
+#import "JMMediaBrowserTranslation.h"
 
 NSString * const JMPhotoCellIdentifier = @"JMPhotoCellIdentifier";
 NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
@@ -21,6 +22,8 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 {
     
 }
+@property (nonatomic,strong) JMMediaBrowserTranslation *translation;//转场动画管理者
+
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
@@ -62,17 +65,23 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
     return self;
 }
 
-//- (instancetype)initWithResources:(NSArray *)array currentIndex:(NSInteger)index fromView:(UIView *)view{
-//    self =[super init];
-//    if (self) {
-//        _mediaArray   = array;
-//        _totalCount   = [array count];
-//        _currentIndex = index;
-//        _animateShow  = YES;
-//        _fromViewRect = [view convertRect:view.superview.frame toView:[UIApplication sharedApplication].keyWindow];
-//    }
-//    return self;
-//}
+#pragma mark - 懒加载
+- (JMMediaBrowserTranslation *)translation
+{
+    if (!_translation)
+    {
+        _translation = [[JMMediaBrowserTranslation alloc] init];
+        //        _translation.endBlock = ^{
+        //            NSLog(@"end");
+        //        };
+//        _translation.photoBrowserMainScrollView = (UIView *)self.mainScrollView;
+//        _translation.imageViewArray = self.imageViewArray;
+//        _translation.imageViewFrameArray = self.imageViewFrameArray;
+//        _translation.imageNameArray = self.imageNameArray;
+//        _translation.currentIndex = self.currentImageIndex;//这个参数要最后赋值，因为他的setter中用到了上面的参数
+    }
+    return _translation;
+}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -99,15 +108,29 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
+//    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+//        //调用隐藏方法
+//        [self prefersStatusBarHidden];
+//        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+//
+//    }
+    [self configeStatusBarHidden:YES];
+    
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 //    [self.playerItem  removeObserver:self forKeyPath:@"loadedTimeRanges"];
-    [UIApplication sharedApplication].statusBarHidden = NO;
+    [self configeStatusBarHidden:NO];
     
+}
+
+- (void)configeStatusBarHidden:(BOOL)hidden { if (hidden) { [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide]; }else { [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide]; } }
+
+//实现隐藏方法
+- (BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 - (void)initSubView{
@@ -185,7 +208,7 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 - (void)createBackButton{
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 30, 35, 35)];
     [backBtn addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setImage:JMMediaBrowserImage(@"back") forState:UIControlStateNormal];
+    [backBtn setImage:JMMediaBrowserImage(@"JM_back") forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -253,7 +276,9 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
      numberOfItemsInSection:(NSInteger)section {
     return self.totalCount;
 }
-
+/**
+ 返回的数据要对应哪一个cell
+ */
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     _currentIndex = indexPath.row;
@@ -265,16 +290,26 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
 
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath{
+    JMMediaModel *model = self.mediaArray[indexPath.row];
+    if (model.mediaType == JMMediaTypeVideo) {
+        [self.videoManager manualPause];
+    }
+    
+}
 
 - (JMPhotoCollectionCell *)configNormalPhotoCollectionCellForIndexPath:(NSIndexPath *)indexPath mediaModel:(JMMediaModel *)model{
     
     JMPhotoCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:JMPhotoCellIdentifier
                                                                             forIndexPath:indexPath];
-    
+    [cell loadImageWithModel:model];
 //    __block JMPhotoCollectionCell* blockCell = cell;
-    [cell setPlaceholderImage:model.placeholderString];
-    [self.photoManager loadImageWithModel:model];
+//    [cell setPlaceholderImage:model.placeholderString];
+//    [self.photoManager loadImageWithModel:model];
 //    [self.photoManager loadImageWithModel:model progress:^(CGFloat schedule) {
 //        //        [cell showProgressViewWithSchedule:schedule];
 //        // [cell jm_showProgressViewWithSchedule:schedule];
@@ -288,7 +323,7 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 //            }
 //        }
 //    }];
-    [cell jm_showActivityIndicatorView];
+//    [cell jm_showActivityIndicatorView];
     return cell;
 }
 
@@ -320,13 +355,16 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     JMMediaModel *model = self.mediaArray[_currentIndex];
-    if (model.mediaType == JMMediaTypeVideo) {
-        [self.videoManager manualPause];
-    }
+//    if (model.mediaType == JMMediaTypeVideo) {
+//        [self.videoManager manualPause];
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
+//    if (self.model.mediaType == JMMediaTypeVideo) {
+//        [self.videoManager manualPlay];
+//
+//    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -371,17 +409,17 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 }
 #pragma mark UIViewControllerTransitioningDelegate(转场动画代理)
 //这个是B回到A时执行的方法
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-//{
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
 //    self.translation.photoBrowserShow = YES;
-//    return self.translation;
-//}
-//
-////这个是A跳到B时执行的方法
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-//{
+    return self.translation;
+}
+
+//这个是A跳到B时执行的方法
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
 //    self.translation.photoBrowserShow = NO;
-//    return self.translation;
-//}
+    return self.translation;
+}
 
 @end

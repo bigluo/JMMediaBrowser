@@ -10,6 +10,7 @@
 #import "JMVideoManager.h"
 
 #import "JMHeader.h"
+
 @interface JMVideoCollectionCell()
 {
     

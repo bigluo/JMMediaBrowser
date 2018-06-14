@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface JMMediaBrowserTranslation : NSObject <UIViewControllerAnimatedTransitioning>
+@property (nonatomic,assign) BOOL mediaBrowserShow;//浏览器是显示还是隐藏
 
+@property (nonatomic,assign) CGRect backViewFrame;//退回时的image的frame
 @end
