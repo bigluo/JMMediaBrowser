@@ -51,6 +51,7 @@
 		9D44108E20D201D9007B7FD4 /* JMPhotoBaseCollectionCell+Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D44108D20D201D9007B7FD4 /* JMPhotoBaseCollectionCell+Manager.m */; };
 		9D48EC6D20CBB2C00089571A /* JMMediaBrowserTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D48EC6C20CBB2C00089571A /* JMMediaBrowserTranslation.m */; };
 		9D48EC7020CBCB7C0089571A /* JMPhotoBaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D48EC6F20CBCB7C0089571A /* JMPhotoBaseCollectionCell.m */; };
+		9D4A33F420DA1F84004F504C /* NormalNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A33F320DA1F84004F504C /* NormalNavigationController.m */; };
 		9D4D159C20C3E692006E0F41 /* JMPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D158820C3E692006E0F41 /* JMPhotoManager.m */; };
 		9D4D159D20C3E692006E0F41 /* UIView+JMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D158920C3E692006E0F41 /* UIView+JMExtension.m */; };
 		9D4D159E20C3E692006E0F41 /* JMMediaBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D158D20C3E692006E0F41 /* JMMediaBrowser.m */; };
@@ -154,6 +155,8 @@
 		9D48EC6C20CBB2C00089571A /* JMMediaBrowserTranslation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JMMediaBrowserTranslation.m; sourceTree = "<group>"; };
 		9D48EC6E20CBCB7C0089571A /* JMPhotoBaseCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMPhotoBaseCollectionCell.h; sourceTree = "<group>"; };
 		9D48EC6F20CBCB7C0089571A /* JMPhotoBaseCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JMPhotoBaseCollectionCell.m; sourceTree = "<group>"; };
+		9D4A33F220DA1F84004F504C /* NormalNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNavigationController.h; sourceTree = "<group>"; };
+		9D4A33F320DA1F84004F504C /* NormalNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNavigationController.m; sourceTree = "<group>"; };
 		9D4D158820C3E692006E0F41 /* JMPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMPhotoManager.m; sourceTree = "<group>"; };
 		9D4D158920C3E692006E0F41 /* UIView+JMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JMExtension.m"; sourceTree = "<group>"; };
 		9D4D158A20C3E692006E0F41 /* JMVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMVideoManager.h; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				9D3F842A20BCE65600344D9E /* AppDelegate.m */,
 				9D3F842C20BCE65600344D9E /* ViewController.h */,
 				9D3F842D20BCE65600344D9E /* ViewController.m */,
+				9D4A33F220DA1F84004F504C /* NormalNavigationController.h */,
+				9D4A33F320DA1F84004F504C /* NormalNavigationController.m */,
 				9D38DF1220D0F99500567420 /* TableViewDataSourceVC */,
 				9D3F842F20BCE65600344D9E /* Main.storyboard */,
 				9D3F843220BCE65600344D9E /* Assets.xcassets */,
@@ -573,6 +578,7 @@
 				9D3F84A420BCE6B500344D9E /* NSData+ImageContentType.m in Sources */,
 				9D3F849E20BCE6B500344D9E /* UIImage+GIF.m in Sources */,
 				9D3F843920BCE65600344D9E /* main.m in Sources */,
+				9D4A33F420DA1F84004F504C /* NormalNavigationController.m in Sources */,
 				9D3F84A320BCE6B500344D9E /* SDWebImageDownloaderOperation.m in Sources */,
 				9D4D159D20C3E692006E0F41 /* UIView+JMExtension.m in Sources */,
 				9D3F849B20BCE6B500344D9E /* SDWebImageDecoder.m in Sources */,

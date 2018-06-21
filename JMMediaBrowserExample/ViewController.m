@@ -67,8 +67,9 @@
         [arr addObject:model];
     }
     
-    JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:0];
-    [browser show];
+    JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:0 ];
+    [self presentViewController:browser animated:YES completion:nil];
+    //[browser show];
 }
 
 
@@ -86,7 +87,8 @@
     }
     
     JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:0];
-    [browser show];
+    [self presentViewController:browser animated:YES completion:nil];
+    //[browser show];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

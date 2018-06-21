@@ -106,8 +106,8 @@
     }
     
     JMMediaBrowser *browser = [[JMMediaBrowser alloc]initWithResources:arr currentIndex:tag];
-    [browser show];
-
+//    [browser show];
+    [self presentViewController:browser animated:YES completion:nil];
 }
 
 #pragma mark - 懒加载

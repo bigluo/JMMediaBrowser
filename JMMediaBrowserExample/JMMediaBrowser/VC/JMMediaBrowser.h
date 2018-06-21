@@ -13,6 +13,8 @@
 //#pragma clang diagnostic push
 //#pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
+typedef void (^JMGetTranslationAnimateImageBlock)(UIImage *image, CGRect imageRect);
+
 typedef NS_ENUM(NSUInteger, SlideDirect){
     SlideDirectDefault,
     SlideDirectLeft,
@@ -54,5 +56,10 @@ typedef NS_ENUM(NSUInteger, JMMediaBrowserAnimation) {
 
 - (void)show;
 
-- (instancetype)initWithResources:(NSArray *)array currentIndex:(NSInteger)index;
+- (instancetype)initWithResources:(nonnull NSArray *)array currentIndex:(NSInteger)index;
+
+- (void)jm_getTranslationAnimateImage:(JMGetTranslationAnimateImageBlock)translationAnimateImageblock;
+
+//#warning - 暂废弃
+//- (instancetype)initWithResources:(NSArray *)array currentIndex:(NSInteger)index fromVC:(UIViewController *)fromVC;
 @end

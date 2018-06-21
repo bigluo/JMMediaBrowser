@@ -45,6 +45,10 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 @property (nonatomic, assign) BOOL animateShow;
 
 @property (nonatomic, assign) CGRect fromViewRect;
+
+@property (nonatomic, weak)   UIViewController *fromVC;
+
+@property (nonatomic, assign) BOOL  statusBarHidden;
 @end
 
 @implementation JMMediaBrowser
@@ -63,6 +67,19 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
         _animateShow  = YES;
     }
     return self;
+}
+
+- (instancetype)initWithResources:(NSArray *)array currentIndex:(NSInteger)index fromVC:(UIViewController *)fromVC{
+    self =[super init];
+    if (self) {
+        _mediaArray   = array;
+        _totalCount   = [array count];
+        _currentIndex = index;
+        _animateShow  = YES;
+        _fromVC       = fromVC;
+    }
+    return self;
+    
 }
 
 #pragma mark - 懒加载
@@ -85,6 +102,11 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.transitioningDelegate = self;
+    [self addNotification];
+     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self configeStatusBarHidden:YES];
+    
     self.videoManager = [[JMVideoManager alloc]init];
     self.videoManager.isAutoPlay = YES;
     self.photoManager = [[JMPhotoManager alloc]init];
@@ -95,6 +117,12 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 }
 
 - (void)addNotification{
+    // 监测设备方向
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(onDeviceOrientationChange)
+//                                                 name:UIDeviceOrientationDidChangeNotification
+//                                               object:nil];
     //    [[NSNotificationCenter defaultCenter] addObserver:self
     //                                             selector:@selector(appBecomeActive:)
     //                                                 name:UIApplicationDidBecomeActiveNotification
@@ -108,30 +136,81 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+   
+    
 //    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
 //        //调用隐藏方法
 //        [self prefersStatusBarHidden];
 //        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
 //
 //    }
-    [self configeStatusBarHidden:YES];
+    //[self configeStatusBarHidden:YES];
     
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 //    [self.playerItem  removeObserver:self forKeyPath:@"loadedTimeRanges"];
-    [self configeStatusBarHidden:NO];
+    //[self configeStatusBarHidden:NO];
     
+//     [UIView animateWithDuration:0.5 animations:^{
+//                 [self setNeedsStatusBarAppearanceUpdate];
+//             }];
 }
 
-- (void)configeStatusBarHidden:(BOOL)hidden { if (hidden) { [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide]; }else { [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide]; } }
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
-//实现隐藏方法
-- (BOOL)prefersStatusBarHidden{
+- (BOOL)prefersStatusBarHidden {
+    return _statusBarHidden;
+}
+
+
+- (void)configeStatusBarHidden:(BOOL)hidden {
+    self.statusBarHidden = hidden;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+
+}
+
+#pragma mark 旋转
+- (BOOL)shouldAutorotate{
+    
     return YES;
 }
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        return;
+        
+    }else if(orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight){
+        [self.collectionView removeFromSuperview];
+        self.collectionView.frame = self.view.frame;//CGSizeMake(self.view.jm_height, self.view.jm_width);
+        [self.view addSubview:self.collectionView];
+        
+    }else if (orientation == UIDeviceOrientationPortrait){
+        [self.collectionView removeFromSuperview];
+        self.collectionView.frame = self.view.frame;
+        [self.view addSubview:self.collectionView];
+    }
+    [self.view setNeedsLayout];
+}
+
+//
+////实现隐藏方法
+//- (BOOL)prefersStatusBarHidden{
+//    return YES;
+//}
 
 - (void)initSubView{
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -207,10 +286,9 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 
 - (void)createBackButton{
     UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 30, 35, 35)];
-    [backBtn addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setImage:JMMediaBrowserImage(@"JM_back") forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
-    [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)createBottomTipLabel{
@@ -229,11 +307,6 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 ///=============================================================================
 /// @name Action
 ///=============================================================================
-- (void)backAction{
-//    [self.videoManager changedPlayerStatus:JMPlayerStatusStop];
-    [self dismiss];
-}
-
 - (void)deleteAction{
 //    NSInteger deleteIndex = _currentIndex;
 //    JMMediaModel *model = self.mediaArray[deleteIndex];
@@ -377,10 +450,7 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 //    }
 }
 
-- (void)dismiss{
-    [self removeFromParentViewController];
-    [self.view removeFromSuperview];
-}
+
 
 - (void)show{
 //    _currentContentView.x = _externalScrollView.bounds.size.width*_currentPage;
@@ -389,15 +459,26 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
 //    [photoView showImage];
 //    [_currentContentView addSubview:photoView];
 //     _externalScrollView.contentOffset = CGPointMake(_externalScrollView.bounds.size.width*_currentPage, 0);
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window.rootViewController addChildViewController:self];
-    [window.rootViewController.view addSubview:self.view];
+//    if (self.fromVC) {
+//        [self.fromVC addChildViewController:self];
+//        [self.fromVC.view addSubview:self.view];
+//    }else{
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController addChildViewController:self];
+        [window.rootViewController.view addSubview:self.view];
+//    }
+
 //    [window addSubview:self.view];
 
 }
 
-- (void)hide:(id)sender
+- (void)hide
 {
+    [self configeStatusBarHidden:NO];
+    [self removeFromParentViewController];
+    [self.view removeFromSuperview];
+//    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 //    if ([delegate respondsToSelector:@selector(STDImageBrowserWillHide:)]) {
 //        [delegate STDImageBrowserWillHide:self];
 //    }
@@ -407,18 +488,28 @@ NSString * const JMVideoCellIdentifier = @"JMVideoCellIdentifier";
     
 //    [self removeFromSuperview];
 }
+
+- (void)jm_getTranslationAnimateImage:(JMGetTranslationAnimateImageBlock)translationAnimateImageblock{
+    JMMediaModel *model = self.mediaArray[_currentIndex];
+//    if (model.mediaType == JMMediaTypePhoto) {
+//        self.photoManager
+//    }else if (model.mediaType == JMMediaTypeVideo){
+//        self.videoManager
+//    }
+}
+
 #pragma mark UIViewControllerTransitioningDelegate(转场动画代理)
 //这个是B回到A时执行的方法
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-//    self.translation.photoBrowserShow = YES;
+    self.translation.mediaBrowserShow = YES;
     return self.translation;
 }
 
 //这个是A跳到B时执行的方法
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-//    self.translation.photoBrowserShow = NO;
+    self.translation.mediaBrowserShow = NO;
     return self.translation;
 }
 

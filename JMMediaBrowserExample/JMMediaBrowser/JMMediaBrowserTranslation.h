@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+/**
+ * 自定义模态转场动画对象
+ */
 @interface JMMediaBrowserTranslation : NSObject <UIViewControllerAnimatedTransitioning>
 @property (nonatomic,assign) BOOL mediaBrowserShow;//浏览器是显示还是隐藏
 
